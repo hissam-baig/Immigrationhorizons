@@ -145,6 +145,7 @@ p { margin: 0 0 16px; color: var(--gray-700); }
   content: "";
   position: absolute; inset: 0;
   background: radial-gradient(circle at 85% 20%, rgba(201,153,46,.35), transparent 45%);
+  pointer-events: none;
 }
 .hero-grid { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center; }
 .hero h1 { color: var(--white); font-size: 2.9rem; margin-bottom: 18px; }
