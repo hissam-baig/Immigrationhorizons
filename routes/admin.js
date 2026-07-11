@@ -103,4 +103,9 @@ router.put('/admin/consultations/:id/status', requireAdmin, async (req, res) => 
   res.redirect('/admin');
 });
 
+router.delete('/admin/consultations/:id', requireAdmin, async (req, res) => {
+  await Consultation.findByIdAndDelete(req.params.id);
+  res.redirect('/admin');
+});
+
 module.exports = router;
