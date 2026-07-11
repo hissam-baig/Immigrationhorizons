@@ -43,8 +43,14 @@
 
     <div class="admin-card">
       <h3 style="margin-top:0;">Recent Consultation Requests</h3>
+      <div class="lead-filter-tabs">
+        <a href="/admin" class="lead-filter-tab <%= !activeServiceFilter ? 'active' : '' %>">All (<%= totalLeads %>)</a>
+        <% serviceCategories.forEach(function(cat) { %>
+          <a href="/admin?service=<%= encodeURIComponent(cat) %>" class="lead-filter-tab <%= activeServiceFilter === cat ? 'active' : '' %>"><%= cat %> (<%= countsByService[cat] || 0 %>)</a>
+        <% }); %>
+      </div>
       <% if (!consultations.length) { %>
-        <p>No consultation requests yet.</p>
+        <p><%= activeServiceFilter ? `No ${activeServiceFilter} leads yet.` : 'No consultation requests yet.' %></p>
       <% } else { %>
         <table class="admin-table">
           <thead>
@@ -72,6 +78,34 @@
                 <td><%= new Date(c.createdAt).toLocaleDateString() %></td>
                 <td>
                   <form action="/admin/consultations/<%= c._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Delete this lead? This cannot be undone.');">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+
+    <div class="admin-card">
+      <h3 style="margin-top:0;">Recent Blog Comments</h3>
+      <% if (!comments.length) { %>
+        <p>No comments yet.</p>
+      <% } else { %>
+        <table class="admin-table">
+          <thead>
+            <tr><th>Name</th><th>Comment</th><th>Post</th><th>Date</th><th></th></tr>
+          </thead>
+          <tbody>
+            <% comments.forEach(function(cm) { %>
+              <tr>
+                <td><%= cm.name %></td>
+                <td style="max-width:320px;"><%= cm.message.length > 140 ? cm.message.slice(0,140) + '…' : cm.message %></td>
+                <td><% if (cm.post) { %><a href="/blog/<%= cm.post.slug %>" target="_blank"><%= cm.post.title %></a><% } else { %>—<% } %></td>
+                <td><%= new Date(cm.createdAt).toLocaleDateString() %></td>
+                <td>
+                  <form action="/admin/comments/<%= cm._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Delete this comment? This cannot be undone.');">
                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                   </form>
                 </td>

@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const BlogPost = require('../models/BlogPost');
 const Consultation = require('../models/Consultation');
+const Comment = require('../models/Comment');
 const { requireAdmin } = require('../middleware/auth');
 const upload = require('../middleware/upload');
 const categories = require('../utils/blogCategories');
@@ -41,11 +42,30 @@ router.post('/admin/logout', (req, res) => {
 
 // ---------- Dashboard ----------
 router.get('/admin', requireAdmin, async (req, res) => {
-  const [posts, consultations] = await Promise.all([
+  const activeServiceFilter = req.query.service || null;
+  const consultationFilter = activeServiceFilter ? { service: activeServiceFilter } : {};
+
+  const [posts, consultations, serviceCounts, totalLeads, comments] = await Promise.all([
     BlogPost.find().sort({ createdAt: -1 }),
-    Consultation.find().sort({ createdAt: -1 }).limit(20),
+    Consultation.find(consultationFilter).sort({ createdAt: -1 }).limit(20),
+    Consultation.aggregate([{ $group: { _id: '$service', count: { $sum: 1 } } }]),
+    Consultation.countDocuments(),
+    Comment.find().sort({ createdAt: -1 }).limit(20).populate('post', 'title slug'),
   ]);
-  res.render('admin/dashboard', { title: 'Admin Dashboard', posts, consultations });
+
+  const serviceCategories = Consultation.schema.path('service').enumValues;
+  const countsByService = Object.fromEntries(serviceCounts.map((s) => [s._id, s.count]));
+
+  res.render('admin/dashboard', {
+    title: 'Admin Dashboard',
+    posts,
+    consultations,
+    serviceCategories,
+    countsByService,
+    totalLeads,
+    activeServiceFilter,
+    comments,
+  });
 });
 
 // ---------- Blog CRUD ----------
@@ -105,6 +125,12 @@ router.put('/admin/consultations/:id/status', requireAdmin, async (req, res) => 
 
 router.delete('/admin/consultations/:id', requireAdmin, async (req, res) => {
   await Consultation.findByIdAndDelete(req.params.id);
+  res.redirect('/admin');
+});
+
+// ---------- Blog comment moderation ----------
+router.delete('/admin/comments/:id', requireAdmin, async (req, res) => {
+  await Comment.findByIdAndDelete(req.params.id);
   res.redirect('/admin');
 });
 

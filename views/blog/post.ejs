@@ -21,6 +21,49 @@
         <%- post.content %>
       </div>
 
+      <div class="comments-section" id="comments">
+        <div class="section-head guides-head">
+          <h2><%= comments.length %> Comment<%= comments.length === 1 ? '' : 's' %></h2>
+        </div>
+
+        <% if (comments && comments.length) { %>
+          <ul class="comment-list">
+            <% comments.forEach(function(c) { %>
+              <li class="comment">
+                <div class="comment-meta">
+                  <span class="comment-name"><%= c.name %></span>
+                  <span class="comment-date"><%= new Date(c.createdAt).toLocaleDateString() %></span>
+                </div>
+                <p class="comment-message"><%= c.message %></p>
+              </li>
+            <% }); %>
+          </ul>
+        <% } else { %>
+          <p>No comments yet. Be the first to share your thoughts.</p>
+        <% } %>
+
+        <div class="form-card comment-form-card">
+          <% if (typeof commentError !== 'undefined' && commentError) { %>
+            <div class="alert alert-error"><%= commentError %></div>
+          <% } %>
+          <form action="/blog/<%= post.slug %>/comments" method="POST">
+            <div class="hp-field" aria-hidden="true">
+              <label for="website">Leave this field empty</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label for="comment-name">Name</label>
+              <input type="text" id="comment-name" name="name" required maxlength="80" placeholder="Jane Doe">
+            </div>
+            <div class="form-group">
+              <label for="comment-message">Comment</label>
+              <textarea id="comment-message" name="message" rows="4" required maxlength="2000" placeholder="Share your thoughts..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Post Comment</button>
+          </form>
+        </div>
+      </div>
+
       <% if (related && related.length) { %>
         <div class="section-head mt-40">
           <span class="eyebrow">Related Posts</span>

@@ -254,6 +254,17 @@ textarea { resize: vertical; min-height: 120px; }
 .alert-error { background: #fdecec; color: #c53030; border: 1px solid #f8c6c6; }
 
 .contact-alt-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; margin-top: 40px; }
+
+/* ===== Blog comments ===== */
+.comments-section { margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--gray-200); }
+.comment-list { max-width: 720px; margin: 0 auto 32px; }
+.comment { padding: 18px 0; border-bottom: 1px solid var(--gray-200); }
+.comment:last-child { border-bottom: none; }
+.comment-meta { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+.comment-name { font-weight: 700; color: var(--blue-900); }
+.comment-date { font-size: .78rem; color: var(--gray-500); }
+.comment-message { margin: 0; color: var(--gray-700); white-space: pre-wrap; }
+.comment-form-card { margin-top: 8px; }
 .contact-alt-card { text-align: center; background: var(--gray-100); border-radius: var(--radius); padding: 24px; }
 
 /* ===== Blog ===== */
@@ -304,6 +315,10 @@ textarea { resize: vertical; min-height: 120px; }
 .badge-new { background: var(--gold-100); color: var(--gold-600); }
 .badge-contacted { background: var(--blue-100); color: var(--blue-700); }
 .badge-closed { background: var(--gray-200); color: var(--gray-700); }
+.lead-filter-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.lead-filter-tab { display: inline-block; padding: 6px 14px; border-radius: 999px; background: var(--gray-100); color: var(--gray-700); font-size: .82rem; font-weight: 600; border: 1px solid var(--gray-200); }
+.lead-filter-tab:hover { background: var(--gray-200); }
+.lead-filter-tab.active { background: var(--blue-600); color: var(--white); border-color: var(--blue-600); }
 .login-shell { min-height: 70vh; display: flex; align-items: center; justify-content: center; padding: 40px 0; }
 .action-row { display: flex; gap: 8px; }
 
