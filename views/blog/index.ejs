@@ -1,0 +1,43 @@
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Blog</span>
+      <h2>Immigration insights &amp; case updates</h2>
+      <p>Notes on EB-2 NIW, EB-1A, EB-1B and EB-1C strategy, RFE responses, and USCIS policy updates.</p>
+    </div>
+
+    <form action="/blog" method="GET" style="max-width:420px;margin:0 auto 24px;">
+      <% if (activeCategory) { %><input type="hidden" name="category" value="<%= activeCategory %>"><% } %>
+      <input type="search" name="q" value="<%= q %>" placeholder="Search the blog...">
+    </form>
+
+    <div class="blog-filters">
+      <a href="/blog<%= q ? '?q=' + encodeURIComponent(q) : '' %>" class="<%= !activeCategory ? 'active' : '' %>">All</a>
+      <% categories.forEach(function(c) { %>
+        <a href="/blog?category=<%= encodeURIComponent(c) %><%= q ? '&q=' + encodeURIComponent(q) : '' %>" class="<%= activeCategory === c ? 'active' : '' %>"><%= c %></a>
+      <% }); %>
+    </div>
+
+    <% if (dbError) { %>
+      <div class="empty-state">Blog is not connected to a database yet. Add MONGODB_URI to your .env file to enable posts.</div>
+    <% } else if (!posts.length) { %>
+      <div class="empty-state">No posts yet — check back soon.</div>
+    <% } else { %>
+      <div class="blog-grid">
+        <% posts.forEach(function(post) { %>
+          <a class="blog-card" href="/blog/<%= post.slug %>">
+            <div class="thumb">
+              <% if (post.coverImage) { %><img src="<%= post.coverImage %>" alt="<%= post.title %>"><% } else { %>IH<% } %>
+            </div>
+            <div class="blog-card-body">
+              <span class="cat"><%= post.category %></span>
+              <h3><%= post.title %></h3>
+              <p><%= post.excerpt %></p>
+              <div class="meta"><%= new Date(post.createdAt).toLocaleDateString() %></div>
+            </div>
+          </a>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+</section>

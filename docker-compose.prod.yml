@@ -1,0 +1,39 @@
+# Production compose file for a VPS (Hostinger or otherwise) - runs the app
+# behind Caddy, which handles automatic HTTPS via Let's Encrypt.
+#
+# Usage:
+#   cp .env.example .env   # fill in real production values, including SITE_DOMAIN
+#   docker compose -f docker-compose.prod.yml up -d --build
+
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - PORT=3000
+    volumes:
+      - uploads:/app/public/uploads
+    expose:
+      - "3000"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - web
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  uploads:
+  caddy_data:
+  caddy_config:

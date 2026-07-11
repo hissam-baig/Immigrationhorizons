@@ -1,0 +1,34 @@
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Client Reviews</span>
+      <h2>What our clients say</h2>
+      <p>These reviews and messages are from verified clients on our Fiverr profile.</p>
+      <p><a class="btn btn-blue btn-sm" href="https://www.fiverr.com/rahatkarim487/prepare-a-tailored-response-to-the-rfe-from-uscis" target="_blank" rel="noopener">✓ Verified on Fiverr — view our RFE-response gig</a></p>
+    </div>
+
+    <div class="testimonial-grid">
+      <% testimonials.forEach(function(t) { %>
+        <div class="testimonial-card">
+          <span class="service-pill"><%= t.service %></span>
+          <div class="stars"><%= '★'.repeat(t.rating) %></div>
+          <p class="quote">"<%= t.text %>"</p>
+          <div class="testimonial-meta">
+            <div>
+              <div class="testimonial-person"><%= t.country === 'US' ? '🇺🇸 ' : '' %><%= t.name %></div>
+              <div class="testimonial-role"><%= t.location %> · <%= t.date %></div>
+            </div>
+            <span class="platform-badge"><%= t.source %></span>
+          </div>
+          <a class="verify-link" href="<%= t.verifyUrl %>" target="_blank" rel="noopener">Verify on Fiverr →</a>
+        </div>
+      <% }); %>
+    </div>
+
+    <div class="cta-band mt-40">
+      <h2>Want to be our next success story?</h2>
+      <p>Book a free consultation and let's talk about your petition.</p>
+      <a href="/consultation" class="btn btn-blue">Book Your Free Consultation</a>
+    </div>
+  </div>
+</section>

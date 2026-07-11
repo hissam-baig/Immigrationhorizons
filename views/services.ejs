@@ -1,0 +1,25 @@
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Services</span>
+      <h2>Every category, every deliverable</h2>
+      <p>We support EB-2 NIW, EB-1A, EB-1B and EB-1C petitions — as a full end-to-end build, or individual pieces of the process.</p>
+    </div>
+
+    <div class="services-grid">
+      <% services.forEach(function(s) { %>
+        <div class="service-card">
+          <div class="service-icon"><%= s.name.slice(0,2) %></div>
+          <h3><%= s.name %></h3>
+          <span class="tagline"><%= s.tagline %></span>
+          <p><%= s.description %></p>
+          <a href="/services/<%= s.slug %>" class="learn-more">Learn More →</a>
+        </div>
+      <% }); %>
+    </div>
+
+    <div class="text-center mt-40">
+      <a href="/consultation" class="btn btn-primary">Book a Free Consultation</a>
+    </div>
+  </div>
+</section>

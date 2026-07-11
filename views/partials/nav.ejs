@@ -1,0 +1,30 @@
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="/" class="brand">
+      <img src="/images/logo-header.png" alt="Immigration Horizons" class="brand-logo">
+    </a>
+
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-checkbox">
+    <label for="nav-toggle" class="nav-toggle-btn" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </label>
+
+    <nav class="main-nav">
+      <a href="/" class="<%= currentPath === '/' ? 'active' : '' %>">Home</a>
+
+      <div class="nav-item-dropdown">
+        <a href="/services" class="<%= currentPath && currentPath.startsWith('/services') ? 'active' : '' %>">Services</a>
+        <ul class="dropdown-menu">
+          <% services.forEach(function(s) { %>
+            <li><a href="/services/<%= s.slug %>"><%= s.name %></a></li>
+          <% }); %>
+        </ul>
+      </div>
+
+      <a href="/about" class="<%= currentPath === '/about' ? 'active' : '' %>">About Us</a>
+      <a href="/reviews" class="<%= currentPath === '/reviews' ? 'active' : '' %>">Reviews</a>
+      <a href="/blog" class="<%= currentPath && currentPath.startsWith('/blog') ? 'active' : '' %>">Blog</a>
+      <a href="/consultation" class="nav-cta <%= currentPath === '/consultation' ? 'active' : '' %>">Request a Free Consultation</a>
+    </nav>
+  </div>
+</header>

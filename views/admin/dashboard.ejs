@@ -1,0 +1,80 @@
+<section class="admin-shell">
+  <div class="container">
+    <div class="admin-header">
+      <h2 style="margin:0;">Admin Dashboard</h2>
+      <form action="/admin/logout" method="POST"><button type="submit" class="btn btn-ghost btn-sm">Log Out</button></form>
+    </div>
+
+    <div class="admin-card">
+      <div class="admin-header">
+        <h3 style="margin:0;">Blog Posts</h3>
+        <a href="/admin/posts/new" class="btn btn-primary btn-sm">+ New Post</a>
+      </div>
+
+      <% if (!posts.length) { %>
+        <p>No posts yet. Click "+ New Post" to publish your first article.</p>
+      <% } else { %>
+        <table class="admin-table">
+          <thead>
+            <tr><th>Title</th><th>Category</th><th>Status</th><th>Created</th><th></th></tr>
+          </thead>
+          <tbody>
+            <% posts.forEach(function(post) { %>
+              <tr>
+                <td><%= post.title %></td>
+                <td><%= post.category %></td>
+                <td><%= post.published ? 'Published' : 'Draft' %></td>
+                <td><%= new Date(post.createdAt).toLocaleDateString() %></td>
+                <td>
+                  <div class="action-row">
+                    <a class="btn btn-ghost btn-sm" href="/blog/<%= post.slug %>" target="_blank">View</a>
+                    <a class="btn btn-ghost btn-sm" href="/admin/posts/<%= post._id %>/edit">Edit</a>
+                    <form action="/admin/posts/<%= post._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Delete this post?');">
+                      <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+
+    <div class="admin-card">
+      <h3 style="margin-top:0;">Recent Consultation Requests</h3>
+      <% if (!consultations.length) { %>
+        <p>No consultation requests yet.</p>
+      <% } else { %>
+        <table class="admin-table">
+          <thead>
+            <tr><th>Name</th><th>Email</th><th>Source</th><th>Service</th><th>Message</th><th>Attachment</th><th>Status</th><th>Date</th></tr>
+          </thead>
+          <tbody>
+            <% consultations.forEach(function(c) { %>
+              <tr>
+                <td><%= c.name %></td>
+                <td><a href="mailto:<%= c.email %>"><%= c.email %></a></td>
+                <td><%= c.source %></td>
+                <td><%= c.service %></td>
+                <td style="max-width:260px;"><%= c.message.length > 120 ? c.message.slice(0,120) + '…' : c.message %></td>
+                <td><% if (c.attachmentUrl) { %><a href="<%= c.attachmentUrl %>" target="_blank" rel="noopener">View</a><% } else { %>—<% } %></td>
+                <td>
+                  <form action="/admin/consultations/<%= c._id %>/status?_method=PUT" method="POST" style="display:flex;gap:6px;align-items:center;">
+                    <span class="badge-status badge-<%= c.status %>"><%= c.status %></span>
+                    <select name="status" onchange="this.form.submit()" style="width:auto;padding:4px 8px;font-size:.78rem;">
+                      <option value="new" <%= c.status==='new'?'selected':'' %>>New</option>
+                      <option value="contacted" <%= c.status==='contacted'?'selected':'' %>>Contacted</option>
+                      <option value="closed" <%= c.status==='closed'?'selected':'' %>>Closed</option>
+                    </select>
+                  </form>
+                </td>
+                <td><%= new Date(c.createdAt).toLocaleDateString() %></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+  </div>
+</section>

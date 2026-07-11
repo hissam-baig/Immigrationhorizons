@@ -1,0 +1,18 @@
+<div class="services-grid">
+  <% team.forEach(function(member) { %>
+    <% if (member.placeholder) { %>
+      <div class="service-card" style="border-style:dashed; text-align:center;">
+        <div class="service-icon" style="margin:0 auto 16px;background:var(--gray-100);color:var(--gray-500);">+</div>
+        <h3 style="color:var(--gray-500);">Team member profile coming soon</h3>
+        <p><%= member.role %></p>
+      </div>
+    <% } else { %>
+      <div class="service-card" style="text-align:center;">
+        <div class="service-icon" style="width:64px;height:64px;border-radius:50%;font-size:1.2rem;margin:0 auto 16px;background:linear-gradient(135deg, var(--blue-600), var(--gold-500));color:var(--white);"><%= member.initials %></div>
+        <h3><%= member.name %></h3>
+        <span class="tagline"><%= member.role %></span>
+        <p><%= member.bio %></p>
+      </div>
+    <% } %>
+  <% }); %>
+</div>

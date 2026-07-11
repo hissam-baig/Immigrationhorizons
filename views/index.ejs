@@ -1,0 +1,144 @@
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <h1>Your US immigration petition, prepared to a standard USCIS approves.</h1>
+      <p class="lead">Immigration Horizons prepares EB-2 NIW, EB-1A, EB-1B and EB-1C petitions, RFE &amp; NOID responses, business plans, recommendation and expert opinion letters — for individuals and law firms worldwide.</p>
+      <div class="hero-actions">
+        <a href="/consultation" class="btn btn-primary">Book a Free Consultation</a>
+        <a href="https://wa.me/<%= whatsapp1 %>" target="_blank" rel="noopener" class="btn btn-outline">Chat on WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <span class="badge">What's included</span>
+      <h3>Full-service petition support</h3>
+      <ul>
+        <li>Cover letters &amp; petition strategy</li>
+        <li>Recommendation letters</li>
+        <li>Expert opinion letters</li>
+        <li>Business / personal plans</li>
+        <li>Form filling, start to finish</li>
+        <li>RFE &amp; NOID responses</li>
+      </ul>
+      <a href="/services" class="btn btn-blue btn-block mt-40" style="margin-top:20px;">See All Services</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="stats-strip">
+      <div class="stat"><strong><%= stats.casesHandled %></strong><span>Cases Handled</span></div>
+      <div class="stat"><strong><%= stats.yearsExperience %></strong><span>Years Experience</span></div>
+      <div class="stat"><strong>Global</strong><span>Clients Across Continents</span></div>
+      <div class="stat"><strong>Multi-lingual</strong><span>Support Available</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="why-us">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Why Choose Us</span>
+      <h2>Eight reasons clients trust us with their case</h2>
+    </div>
+    <div class="feature-grid">
+      <% whyUs.forEach(function(reason) { %>
+        <div class="feature">
+          <div class="service-icon"><%- include('partials/icon', { name: reason.icon }) %></div>
+          <h3><%= reason.title %></h3>
+          <p><%= reason.text %></p>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">What We Do</span>
+      <h2>Services built around your case category</h2>
+      <p>From a single recommendation letter to a full petition from scratch, we scope our work around exactly what you need.</p>
+    </div>
+
+    <div class="services-grid">
+      <% services.forEach(function(s) { %>
+        <div class="service-card">
+          <div class="service-icon"><%= s.name.slice(0,2) %></div>
+          <h3><%= s.name %></h3>
+          <span class="tagline"><%= s.tagline %></span>
+          <p><%= s.description %></p>
+          <a href="/services/<%= s.slug %>" class="learn-more">Learn More →</a>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Client Reviews</span>
+      <h2>What our clients say</h2>
+      <p>Real feedback from verified Fiverr clients. Click "Verify on Fiverr" to view the review on our public profile.</p>
+    </div>
+
+    <div class="testimonial-grid">
+      <% testimonials.forEach(function(t) { %>
+        <div class="testimonial-card">
+          <span class="service-pill"><%= t.service %></span>
+          <div class="stars"><%= '★'.repeat(t.rating) %></div>
+          <p class="quote">"<%= t.text %>"</p>
+          <div class="testimonial-meta">
+            <div>
+              <div class="testimonial-person"><%= t.country === 'US' ? '🇺🇸 ' : '' %><%= t.name %></div>
+              <div class="testimonial-role"><%= t.location %></div>
+            </div>
+            <span class="platform-badge"><%= t.source %></span>
+          </div>
+          <a class="verify-link" href="<%= t.verifyUrl %>" target="_blank" rel="noopener">Verify on Fiverr →</a>
+        </div>
+      <% }); %>
+    </div>
+
+    <div class="text-center mt-40">
+      <a href="/reviews" class="btn btn-blue">Read All Reviews</a>
+    </div>
+  </div>
+</section>
+
+<% if (recentPosts && recentPosts.length) { %>
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head guides-head">
+      <h2>Featured Immigration Guides</h2>
+    </div>
+    <div class="blog-teaser-grid">
+      <% recentPosts.forEach(function(post) { %>
+        <a class="blog-card" href="/blog/<%= post.slug %>">
+          <div class="thumb">
+            <% if (post.coverImage) { %><img src="<%= post.coverImage %>" alt="<%= post.title %>"><% } else { %>IH<% } %>
+          </div>
+          <div class="blog-card-body">
+            <h3><%= post.title %></h3>
+          </div>
+        </a>
+      <% }); %>
+    </div>
+    <div class="text-center mt-40">
+      <a href="/blog" class="btn btn-blue">Read All Guides</a>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-band">
+      <h2>Ready to talk about your case?</h2>
+      <p>Book a free consultation and tell us about your background and goals. We'll follow up by email or WhatsApp.</p>
+      <a href="/consultation" class="btn btn-blue">Book Your Free Consultation</a>
+    </div>
+  </div>
+</section>

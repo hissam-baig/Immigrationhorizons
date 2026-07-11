@@ -1,0 +1,42 @@
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><%= service.tagline %></span>
+      <h2><%= service.name %></h2>
+      <p><%= service.description %></p>
+    </div>
+
+    <div class="hero-card" style="max-width:760px;margin:0 auto 40px;">
+      <span class="badge">Who Qualifies</span>
+      <h3>Eligibility snapshot</h3>
+      <p style="margin:0;"><%= service.eligibility %></p>
+    </div>
+
+    <div class="section-head">
+      <h3>What we prepare for <%= service.name %></h3>
+    </div>
+    <div class="services-grid" style="max-width:760px;margin:0 auto;">
+      <div class="service-card">
+        <ul>
+          <% service.deliverables.forEach(function(d) { %><li><%= d %></li><% }); %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:48px;">
+      <h3>How you can hire us</h3>
+    </div>
+    <div class="services-grid">
+      <% service.engagementOptions.forEach(function(opt) { %>
+        <div class="service-card">
+          <h3><%= opt.label %></h3>
+          <p><%= opt.description %></p>
+        </div>
+      <% }); %>
+    </div>
+
+    <div class="text-center mt-40">
+      <a href="/consultation?service=<%= encodeURIComponent(service.enumValue) %>" class="btn btn-primary">Book a Free Consultation for <%= service.name %></a>
+    </div>
+  </div>
+</section>

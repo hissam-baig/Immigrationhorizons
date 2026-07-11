@@ -1,0 +1,45 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <span class="brand-name light">Immigration<strong>Horizons</strong></span>
+      <p>Your Future. Our Preparation. One Horizon. Petition strategy, writing, and RFE responses for EB-2 NIW, EB-1A, EB-1B and EB-1C cases. 200+ cases handled, 5+ years of experience, clients across the globe.</p>
+      <div class="footer-socials">
+        <a href="https://wa.me/<%= whatsapp1 %>" target="_blank" rel="noopener">WhatsApp 1</a>
+        <a href="https://wa.me/<%= whatsapp2 %>" target="_blank" rel="noopener">WhatsApp 2</a>
+        <a href="<%= fiverrProfileUrl %>" target="_blank" rel="noopener">Fiverr</a>
+        <!-- Upwork profile link disabled pending a real Upwork profile URL from the site owner -->
+        <!-- <a href="<%= upworkProfileUrl %>" target="_blank" rel="noopener">Upwork</a> -->
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Services</h4>
+      <% services.forEach(function(s) { %>
+        <a href="/services/<%= s.slug %>"><%= s.name %></a>
+      <% }); %>
+    </div>
+
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="/about">About Us</a>
+      <a href="/reviews">Client Reviews</a>
+      <a href="/blog">Blog</a>
+      <a href="/consultation">Free Consultation</a>
+      <a href="/contact">Contact</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:<%= contactEmail %>"><%= contactEmail %></a>
+      <a href="https://wa.me/<%= whatsapp1 %>" target="_blank" rel="noopener">+<%= whatsapp1 %></a>
+      <a href="https://wa.me/<%= whatsapp2 %>" target="_blank" rel="noopener">+<%= whatsapp2 %></a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; <%= new Date().getFullYear() %> Immigration Horizons. All rights reserved.</p>
+      <p class="disclaimer">Immigration Horizons provides petition preparation, writing, and document support services. We are not a law firm and do not provide legal representation before USCIS or any court.</p>
+    </div>
+  </div>
+</footer>

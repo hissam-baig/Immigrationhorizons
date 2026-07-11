@@ -1,0 +1,74 @@
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Free Consultation</span>
+      <h2>Tell us about your case</h2>
+      <p>Fill out the form below and we'll follow up by email. Prefer to chat first? Message us on WhatsApp any time.</p>
+    </div>
+
+    <div class="form-card">
+      <% if (submitted) { %>
+        <div class="alert alert-success">Thanks — your request has been received. We'll follow up at the email address you provided, usually within 1 business day.</div>
+      <% } %>
+      <% if (error) { %>
+        <div class="alert alert-error"><%= error %></div>
+      <% } %>
+
+      <form action="/consultation" method="POST" enctype="multipart/form-data">
+        <div class="hp-field" aria-hidden="true">
+          <label for="website">Leave this field empty</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required placeholder="Jane Doe">
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="jane@example.com">
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="phone">Phone / WhatsApp (optional)</label>
+            <input type="text" id="phone" name="phone" placeholder="+1 555 123 4567">
+          </div>
+          <div class="form-group">
+            <label for="service">Service You're Interested In</label>
+            <select id="service" name="service" required>
+              <% services.forEach(function(s) { %>
+                <option value="<%= s.enumValue %>" <%= prefillService === s.enumValue ? 'selected' : '' %>><%= s.name %></option>
+              <% }); %>
+              <option value="Not Sure / Need Guidance" <%= prefillService === 'Not Sure / Need Guidance' ? 'selected' : '' %>>Not Sure / Need Guidance</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group full">
+          <label for="message">Tell us about your background, proposed endeavor, or what you need help with</label>
+          <textarea id="message" name="message" required placeholder="Briefly describe your profile, field, and what you're hoping to achieve..."></textarea>
+        </div>
+        <div class="form-group full">
+          <label for="attachment">CV / Resume (optional, PDF/DOC/DOCX)</label>
+          <input type="file" id="attachment" name="attachment" accept=".pdf,.doc,.docx">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Submit Free Consultation Request</button>
+      </form>
+    </div>
+
+    <div class="contact-alt-grid">
+      <div class="contact-alt-card">
+        <h3>Email</h3>
+        <p><a href="mailto:<%= contactEmail %>"><%= contactEmail %></a></p>
+      </div>
+      <div class="contact-alt-card">
+        <h3>WhatsApp</h3>
+        <p><a href="https://wa.me/<%= whatsapp1 %>" target="_blank" rel="noopener">+<%= whatsapp1 %></a></p>
+      </div>
+      <div class="contact-alt-card">
+        <h3>WhatsApp (Alt)</h3>
+        <p><a href="https://wa.me/<%= whatsapp2 %>" target="_blank" rel="noopener">+<%= whatsapp2 %></a></p>
+      </div>
+    </div>
+  </div>
+</section>

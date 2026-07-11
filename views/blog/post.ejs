@@ -1,0 +1,52 @@
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <% if (!post) { %>
+      <div class="empty-state">
+        <h2>Post not found</h2>
+        <p>This post may have been removed or unpublished.</p>
+        <a href="/blog" class="btn btn-blue">Back to Blog</a>
+      </div>
+    <% } else { %>
+      <div class="post-header">
+        <span class="cat"><%= post.category %></span>
+        <h1><%= post.title %></h1>
+        <p class="meta">By <%= post.author %> · <%= new Date(post.createdAt).toLocaleDateString() %></p>
+      </div>
+
+      <% if (post.coverImage) { %>
+        <img class="post-cover" src="<%= post.coverImage %>" alt="<%= post.title %>">
+      <% } %>
+
+      <div class="post-content">
+        <%- post.content %>
+      </div>
+
+      <% if (related && related.length) { %>
+        <div class="section-head mt-40">
+          <span class="eyebrow">Related Posts</span>
+          <h2>More on <%= post.category %></h2>
+        </div>
+        <div class="blog-grid">
+          <% related.forEach(function(r) { %>
+            <a class="blog-card" href="/blog/<%= r.slug %>">
+              <div class="thumb">
+                <% if (r.coverImage) { %><img src="<%= r.coverImage %>" alt="<%= r.title %>"><% } else { %>IH<% } %>
+              </div>
+              <div class="blog-card-body">
+                <span class="cat"><%= r.category %></span>
+                <h3><%= r.title %></h3>
+                <p><%= r.excerpt %></p>
+              </div>
+            </a>
+          <% }); %>
+        </div>
+      <% } %>
+
+      <div class="cta-band mt-40">
+        <h2>Have a similar case?</h2>
+        <p>Book a free consultation and let's talk about your petition.</p>
+        <a href="/consultation" class="btn btn-blue">Book Your Free Consultation</a>
+      </div>
+    <% } %>
+  </div>
+</section>

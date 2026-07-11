@@ -1,0 +1,60 @@
+<section class="admin-shell">
+  <div class="container">
+    <div class="admin-header">
+      <h2 style="margin:0;"><%= post && post._id ? 'Edit Post' : 'New Post' %></h2>
+      <a href="/admin" class="btn btn-ghost btn-sm">← Back to Dashboard</a>
+    </div>
+
+    <div class="admin-card">
+      <% if (error) { %><div class="alert alert-error"><%= error %></div><% } %>
+
+      <form
+        action="<%= post && post._id ? '/admin/posts/' + post._id + '?_method=PUT' : '/admin/posts' %>"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <div class="form-group full">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" required value="<%= post ? post.title : '' %>">
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" name="category">
+              <% categories.forEach(function(c) { %>
+                <option value="<%= c %>" <%= post && post.category === c ? 'selected' : '' %>><%= c %></option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="coverImageFile">Cover Image (upload)</label>
+            <input type="file" id="coverImageFile" name="coverImageFile" accept="image/*">
+          </div>
+        </div>
+
+        <div class="form-group full">
+          <label for="coverImageUrl">Or Cover Image URL (optional, used if no file is uploaded)</label>
+          <input type="text" id="coverImageUrl" name="coverImageUrl" placeholder="https://..." value="<%= post && post.coverImage && post.coverImage.startsWith('http') ? post.coverImage : '' %>">
+        </div>
+
+        <div class="form-group full">
+          <label for="excerpt">Excerpt (short summary shown on the blog list, max 300 characters)</label>
+          <textarea id="excerpt" name="excerpt" maxlength="300" required style="min-height:70px;"><%= post ? post.excerpt : '' %></textarea>
+        </div>
+
+        <div class="form-group full">
+          <label for="content">Content (HTML supported — paragraphs, headings, images, links)</label>
+          <textarea id="content" name="content" required style="min-height:320px;"><%= post ? post.content : '' %></textarea>
+        </div>
+
+        <div class="form-group full" style="display:flex;align-items:center;gap:10px;">
+          <input type="checkbox" id="published" name="published" style="width:auto;" <%= !post || post.published ? 'checked' : '' %>>
+          <label for="published" style="margin:0;">Published (visible on the public blog)</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Post</button>
+      </form>
+    </div>
+  </div>
+</section>
