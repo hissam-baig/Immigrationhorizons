@@ -1,0 +1,54 @@
+<div class="gig-card">
+  <div class="gig-card-main">
+    <h3 class="gig-card-title"><%= gig.title %></h3>
+    <div class="gig-card-seller">
+      <span class="avatar" style="background:<%= gig.platformColor %>;"><%= gig.sellerInitials %></span>
+      <span class="seller-name"><%= gig.sellerName %></span>
+      <% if (gig.rating) { %>
+        <span class="rating">★ <strong><%= gig.rating %></strong> (<%= gig.reviewCount %> reviews)</span>
+      <% } %>
+    </div>
+
+    <div class="gig-card-hero">
+      <% if (gig.heroImage) { %>
+        <img src="<%= gig.heroImage %>" alt="<%= gig.title %>" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <% } %>
+      <span class="hero-fallback" style="<%= gig.heroImage ? 'display:none;' : '' %>"><%= gig.platform %></span>
+      <% if (gig.heroLabel) { %><span class="hero-label"><%= gig.heroLabel %></span><% } %>
+    </div>
+
+    <% if (gig.thumbnails && gig.thumbnails.length) { %>
+      <div class="gig-card-thumbs">
+        <% gig.thumbnails.forEach(function(t) { %>
+          <div class="thumb"><img src="<%= t %>" alt="" loading="lazy" onerror="this.parentElement.style.display='none';"></div>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+
+  <div class="gig-card-side">
+    <div class="gig-card-side-head">
+      <h4>What's included</h4>
+      <% if (gig.price) { %><span class="price">$<%= gig.price %></span><% } %>
+    </div>
+    <div class="gig-card-package-title"><%= gig.packageTitle %></div>
+    <p class="gig-card-package-desc"><%= gig.packageDescription %></p>
+
+    <div class="gig-card-meta">
+      <% if (gig.deliveryDays) { %>
+        <div class="gig-card-meta-row"><span>Delivery Time</span><span><%= gig.deliveryDays %> days</span></div>
+      <% } %>
+      <% if (gig.revisions) { %>
+        <div class="gig-card-meta-row"><span>Number of Revisions</span><span><%= gig.revisions %></span></div>
+      <% } %>
+      <% (gig.extras || []).forEach(function(e) { %>
+        <div class="gig-card-meta-row"><span><%= e.label %></span><span><%= e.value %></span></div>
+      <% }); %>
+    </div>
+
+    <a href="<%= gig.ctaUrl %>" target="_blank" rel="noopener" class="gig-card-cta" style="background:<%= gig.platformColor %>;"><%= gig.ctaLabel %></a>
+    <% if (gig.note) { %>
+      <div class="gig-card-note"><span>🛡</span><span><%= gig.note %></span></div>
+    <% } %>
+  </div>
+</div>

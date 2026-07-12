@@ -17,6 +17,7 @@ const seoRoutes = require('./routes/seo');
 
 const services = require('./utils/services');
 const social = require('./utils/social');
+const marketplaceListings = require('./utils/marketplaceListings');
 
 const app = express();
 
@@ -74,6 +75,7 @@ app.use((req, res, next) => {
   res.locals.currentPath = req.path;
   res.locals.isAdmin = !!(req.session && req.session.isAdmin);
   res.locals.services = services;
+  res.locals.marketplaceListings = marketplaceListings;
   res.locals.fiverrProfileUrl = social.FIVERR_PROFILE_URL;
   res.locals.fiverrRfeGigUrl = social.FIVERR_RFE_GIG_URL;
   res.locals.upworkProfileUrl = social.UPWORK_PROFILE_URL;
