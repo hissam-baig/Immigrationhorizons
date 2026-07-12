@@ -75,7 +75,9 @@ app.use((req, res, next) => {
   res.locals.isAdmin = !!(req.session && req.session.isAdmin);
   res.locals.services = services;
   res.locals.fiverrProfileUrl = social.FIVERR_PROFILE_URL;
+  res.locals.fiverrRfeGigUrl = social.FIVERR_RFE_GIG_URL;
   res.locals.upworkProfileUrl = social.UPWORK_PROFILE_URL;
+  res.locals.upworkRfeNiwCatalogUrl = social.UPWORK_RFE_NIW_CATALOG_URL;
   res.locals.description = null;
   next();
 });

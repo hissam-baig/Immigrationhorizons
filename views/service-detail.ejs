@@ -37,6 +37,11 @@
 
     <div class="text-center mt-40">
       <a href="/consultation?service=<%= encodeURIComponent(service.enumValue) %>" class="btn btn-primary">Book a Free Consultation for <%= service.name %></a>
+      <% if (service.slug === 'eb2-niw') { %>
+        <p style="margin-top:16px;">
+          <a class="btn btn-blue btn-sm" href="<%= upworkRfeNiwCatalogUrl %>" target="_blank" rel="noopener">Order our RFE Response for EB-2 NIW directly on Upwork →</a>
+        </p>
+      <% } %>
     </div>
   </div>
 </section>
