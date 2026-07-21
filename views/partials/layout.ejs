@@ -15,7 +15,7 @@
     ].join(', ');
   const canonicalUrl = `${siteUrl}${currentPath || '/'}`;
   const pageImage = `${siteUrl}/images/logo-header.png`;
-  const noindexPage = Boolean(noindex || (currentPath && currentPath.startsWith('/admin')));
+  const noindexPage = Boolean((typeof noindex !== 'undefined' && noindex) || (currentPath && currentPath.startsWith('/admin')));
   const pageBreadcrumbs = [
     { name: 'Home', url: siteUrl },
   ];
