@@ -93,7 +93,11 @@ app.use('/', adminRoutes);
 
 // ----- 404 -----
 app.use((req, res) => {
-  res.status(404).render('404', { title: 'Page Not Found' });
+  res.status(404).render('404', {
+    title: 'Page Not Found | Immigration Horizons',
+    description: 'The page you requested could not be found on Immigration Horizons.',
+    noindex: true,
+  });
 });
 
 const PORT = process.env.PORT || 3000;

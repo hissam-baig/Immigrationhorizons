@@ -1,11 +1,73 @@
+<%
+  const pageTitle = typeof title !== 'undefined' && title ? title : 'Immigration Horizons';
+  const pageDescription = typeof description !== 'undefined' && description
+    ? description
+    : 'Immigration Horizons prepares EB-2 NIW, EB-1A, EB-1B and EB-1C petitions, RFE responses, business plans and recommendation letters for clients worldwide. 200+ cases handled, 5+ years of experience.';
+  const canonicalUrl = `${siteUrl}${currentPath || '/'}`;
+  const pageImage = `${siteUrl}/images/logo-header.png`;
+  const noindexPage = Boolean(noindex || (currentPath && currentPath.startsWith('/admin')));
+  const pageSchema = !noindexPage ? {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: pageTitle,
+    description: pageDescription,
+    url: canonicalUrl,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Immigration Horizons',
+      url: siteUrl,
+    },
+  } : null;
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Immigration Horizons',
+    url: siteUrl,
+    logo: pageImage,
+    description: 'Immigration petition preparation and drafting support for EB-2 NIW, EB-1A, EB-1B and EB-1C cases.',
+    sameAs: [
+      fiverrProfileUrl,
+      upworkProfileUrl,
+    ],
+    contactPoint: [{
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      availableLanguage: ['en'],
+      email: contactEmail,
+      telephone: `+${whatsapp1}`,
+    }],
+  };
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Immigration Horizons',
+    url: siteUrl,
+    description: pageDescription,
+  };
+  const jsonLd = [organizationSchema, websiteSchema].concat(pageSchema ? [pageSchema] : []);
+  const safeJsonLd = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= typeof title !== 'undefined' ? title : 'Immigration Horizons' %></title>
-  <meta name="description" content="<%= typeof description !== 'undefined' && description ? description : 'Immigration Horizons prepares EB-2 NIW, EB-1A, EB-1B and EB-1C petitions, RFE responses, business plans and recommendation letters for clients worldwide. 200+ cases handled, 5+ years of experience.' %>">
-  <% if (currentPath && currentPath.startsWith('/admin')) { %><meta name="robots" content="noindex,nofollow"><% } %>
+  <title><%= pageTitle %></title>
+  <meta name="description" content="<%= pageDescription %>">
+  <link rel="canonical" href="<%= canonicalUrl %>">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Immigration Horizons">
+  <meta property="og:title" content="<%= pageTitle %>">
+  <meta property="og:description" content="<%= pageDescription %>">
+  <meta property="og:url" content="<%= canonicalUrl %>">
+  <meta property="og:image" content="<%= pageImage %>">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= pageTitle %>">
+  <meta name="twitter:description" content="<%= pageDescription %>">
+  <meta name="twitter:image" content="<%= pageImage %>">
+  <meta name="theme-color" content="#0f172a">
+  <% if (noindexPage) { %><meta name="robots" content="noindex,nofollow"><% } else { %><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"><% } %>
+  <script type="application/ld+json"><%- safeJsonLd %></script>
   <link rel="icon" href="/images/favicon.ico" sizes="any">
   <link rel="icon" href="/images/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="/images/favicon-16.png" type="image/png" sizes="16x16">
