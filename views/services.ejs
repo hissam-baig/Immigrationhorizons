@@ -1,3 +1,20 @@
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){
+w[l]=w[l]||[];
+w[l].push({
+'gtm.start': new Date().getTime(),
+event:'gtm.js'
+});
+var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),
+dl=l!='dataLayer'?'&l='+l:'';
+j.async=true;
+j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5PQL6BCG');
+</script>
+<!-- End Google Tag Manager -->
 <section class="section" style="padding-top:48px;">
   <div class="container">
     <div class="section-head">
@@ -36,6 +53,37 @@
       <% marketplaceListings.forEach(function(gig) { %>
         <%- include('partials/gig-card', { gig: gig }) %>
       <% }); %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Landing Pages</span>
+      <h2>High-intent pages for search and ads</h2>
+      <p>These pages are built for visitors who already know what service they need and are ready to convert.</p>
+    </div>
+
+    <div class="services-grid">
+      <a class="service-card" href="/eb2-niw">
+        <div class="service-icon">E2</div>
+        <h3>EB-2 NIW</h3>
+        <span class="tagline">National Interest Waiver</span>
+        <p>Dedicated landing page for EB-2 NIW search and ad traffic.</p>
+      </a>
+      <a class="service-card" href="/eb1a">
+        <div class="service-icon">E1</div>
+        <h3>EB-1A</h3>
+        <span class="tagline">Extraordinary Ability</span>
+        <p>Dedicated landing page for extraordinary ability petition inquiries.</p>
+      </a>
+      <a class="service-card" href="/o1-visa">
+        <div class="service-icon">O1</div>
+        <h3>O-1 Visa</h3>
+        <span class="tagline">High-achievement filings</span>
+        <p>Dedicated landing page for O-1 visa traffic and consultations.</p>
+      </a>
     </div>
   </div>
 </section>

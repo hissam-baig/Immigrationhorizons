@@ -5,6 +5,7 @@ const services = require('../utils/services');
 
 const STATIC_ROUTES = [
   '/', '/services', '/about', '/reviews', '/blog', '/consultation', '/contact',
+  '/eb2-niw', '/eb1a', '/o1-visa',
   '/privacy', '/terms', '/resources', '/free-evaluation', '/book-consultation',
   ...services.map((s) => `/services/${s.slug}`),
 ];
@@ -26,6 +27,9 @@ function buildLlmSummary(siteUrl) {
     `- Blog: ${siteUrl}/blog`,
     `- Consultation: ${siteUrl}/consultation`,
     `- Contact: ${siteUrl}/contact`,
+    `- EB-2 NIW Landing Page: ${siteUrl}/eb2-niw`,
+    `- EB-1A Landing Page: ${siteUrl}/eb1a`,
+    `- O-1 Visa Landing Page: ${siteUrl}/o1-visa`,
     '',
     'Services',
     serviceLines,

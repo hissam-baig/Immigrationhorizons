@@ -167,6 +167,9 @@ p { margin: 0 0 16px; color: var(--gray-700); }
 .hero-card ul li { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--gray-200); font-size: .92rem; color: var(--gray-700); }
 .hero-card ul li:last-child { border-bottom: none; }
 .hero-card .badge { color: var(--gold-600); font-weight: 700; }
+.landing-hero { padding-top: 56px; }
+.landing-hero-grid { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+.landing-card { background: linear-gradient(180deg, var(--white), #f7fbff); }
 
 /* ===== Services grid ===== */
 .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
@@ -201,6 +204,11 @@ p { margin: 0 0 16px; color: var(--gray-700); }
 .feature { text-align: left; }
 .feature .service-icon { width: 52px; height: 52px; border-radius: 12px; background: var(--gold-100); color: var(--gold-600); }
 .feature .service-icon .icon-svg { width: 26px; height: 26px; }
+.faq-grid { display: grid; gap: 14px; max-width: 860px; margin: 0 auto; }
+.faq-item { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px 20px; }
+.faq-item summary { cursor: pointer; list-style: none; font-weight: 700; color: var(--blue-900); }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item p { margin-top: 12px; margin-bottom: 0; }
 
 /* ===== Testimonials ===== */
 .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
@@ -408,6 +416,7 @@ textarea { resize: vertical; min-height: 120px; }
 
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; }
+  .landing-hero-grid { grid-template-columns: 1fr; }
   .stats-strip { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
@@ -430,6 +439,7 @@ textarea { resize: vertical; min-height: 120px; }
   .dropdown-menu li a { padding: 12px 24px 12px 40px; font-size: .88rem; border-bottom: 1px solid var(--white); }
   .form-grid { grid-template-columns: 1fr; }
   .stats-strip { grid-template-columns: 1fr 1fr; padding: 24px; }
+  .landing-hero { padding-top: 40px; }
   .footer-grid { grid-template-columns: 1fr; }
   h1 { font-size: 2.1rem; }
 }
