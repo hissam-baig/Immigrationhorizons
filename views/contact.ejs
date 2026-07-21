@@ -38,6 +38,13 @@
           <label for="website">Leave this field empty</label>
           <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
         </div>
+        <input type="hidden" name="utm_source" value="<%= trackingParams.utm_source || '' %>">
+        <input type="hidden" name="utm_medium" value="<%= trackingParams.utm_medium || '' %>">
+        <input type="hidden" name="utm_campaign" value="<%= trackingParams.utm_campaign || '' %>">
+        <input type="hidden" name="utm_term" value="<%= trackingParams.utm_term || '' %>">
+        <input type="hidden" name="utm_content" value="<%= trackingParams.utm_content || '' %>">
+        <input type="hidden" name="gclid" value="<%= trackingParams.gclid || '' %>">
+        <input type="hidden" name="fbclid" value="<%= trackingParams.fbclid || '' %>">
         <div class="form-group full">
           <label for="name">Full Name</label>
           <input type="text" id="name" name="name" required placeholder="Jane Doe">

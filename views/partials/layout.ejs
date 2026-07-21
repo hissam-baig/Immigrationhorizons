@@ -3,9 +3,33 @@
   const pageDescription = typeof description !== 'undefined' && description
     ? description
     : 'Immigration Horizons prepares EB-2 NIW, EB-1A, EB-1B and EB-1C petitions, RFE responses, business plans and recommendation letters for clients worldwide. 200+ cases handled, 5+ years of experience.';
+  const pageKeywords = typeof keywords !== 'undefined' && keywords
+    ? keywords
+    : [
+      'Immigration Horizons',
+      'EB-2 NIW',
+      'EB-1A',
+      'EB-1B',
+      'EB-1C',
+      currentPath && currentPath.includes('/blog') ? 'immigration blog' : 'immigration petition preparation',
+    ].join(', ');
   const canonicalUrl = `${siteUrl}${currentPath || '/'}`;
   const pageImage = `${siteUrl}/images/logo-header.png`;
   const noindexPage = Boolean(noindex || (currentPath && currentPath.startsWith('/admin')));
+  const pageBreadcrumbs = [
+    { name: 'Home', url: siteUrl },
+  ];
+  if (currentPath && currentPath !== '/') {
+    const segments = currentPath.split('/').filter(Boolean);
+    let runningPath = '';
+    segments.forEach((segment) => {
+      runningPath += `/${segment}`;
+      const label = segment
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, (char) => char.toUpperCase());
+      pageBreadcrumbs.push({ name: label, url: `${siteUrl}${runningPath}` });
+    });
+  }
   const pageSchema = !noindexPage ? {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -17,6 +41,16 @@
       name: 'Immigration Horizons',
       url: siteUrl,
     },
+  } : null;
+  const breadcrumbSchema = !noindexPage && pageBreadcrumbs.length > 1 ? {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: pageBreadcrumbs.map((crumb, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.url,
+    })),
   } : null;
   const organizationSchema = {
     '@context': 'https://schema.org',
@@ -43,9 +77,15 @@
     name: 'Immigration Horizons',
     url: siteUrl,
     description: pageDescription,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${siteUrl}/blog?search={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
   };
-  const jsonLd = [organizationSchema, websiteSchema].concat(pageSchema ? [pageSchema] : []);
+  const jsonLd = [organizationSchema, websiteSchema].concat(pageSchema ? [pageSchema] : []).concat(breadcrumbSchema ? [breadcrumbSchema] : []);
   const safeJsonLd = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
+  const hasTracking = ga4Id || gtmId || metaPixelId || linkedinPartnerId || clarityId;
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,6 +94,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= pageTitle %></title>
   <meta name="description" content="<%= pageDescription %>">
+  <meta name="keywords" content="<%= pageKeywords %>">
   <link rel="canonical" href="<%= canonicalUrl %>">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Immigration Horizons">
@@ -68,6 +109,52 @@
   <meta name="theme-color" content="#0f172a">
   <% if (noindexPage) { %><meta name="robots" content="noindex,nofollow"><% } else { %><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"><% } %>
   <script type="application/ld+json"><%- safeJsonLd %></script>
+  <% if (hasTracking && gtmId) { %>
+    <script>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','<%= gtmId %>');
+    </script>
+  <% } %>
+  <% if (hasTracking && ga4Id) { %>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= ga4Id %>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);} 
+      gtag('js', new Date());
+      gtag('config', '<%= ga4Id %>', { anonymize_ip: true });
+    </script>
+  <% } %>
+  <% if (hasTracking && metaPixelId) { %>
+    <script>
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '<%= metaPixelId %>');
+      fbq('track', 'PageView');
+    </script>
+  <% } %>
+  <% if (hasTracking && linkedinPartnerId) { %>
+    <script>
+      _linkedin_partner_id = '<%= linkedinPartnerId %>';
+      window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+      window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+    </script>
+    <script>
+      (function(l) {
+        if (!l){window.lintrk=function(a,b){window.lintrk.q.push([a,b])};window.lintrk.q=[]}
+        var s=document.getElementsByTagName('script')[0];
+        var b=document.createElement('script');
+        b.type='text/javascript';b.async=true;b.src='https://snap.licdn.com/li.lms-analytics/insight.min.js';
+        s.parentNode.insertBefore(b,s);
+      })(window.lintrk);
+    </script>
+  <% } %>
+  <% if (hasTracking && clarityId) { %>
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "<%= clarityId %>");
+    </script>
+  <% } %>
   <link rel="icon" href="/images/favicon.ico" sizes="any">
   <link rel="icon" href="/images/favicon-32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="/images/favicon-16.png" type="image/png" sizes="16x16">
@@ -75,6 +162,9 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+  <% if (hasTracking && gtmId) { %>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<%= gtmId %>" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <% } %>
   <%- include('nav') %>
 
   <main>

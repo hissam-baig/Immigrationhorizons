@@ -1,0 +1,100 @@
+<section class="landing-hero section">
+  <div class="container landing-hero-grid">
+    <div>
+      <span class="eyebrow"><%= page.heroTag %></span>
+      <h1><%= page.headline %></h1>
+      <p class="lead"><%= page.subheadline %></p>
+      <div class="hero-actions">
+        <a href="/consultation?service=<%= page.service ? encodeURIComponent(page.service.enumValue) : '' %>" class="btn btn-primary"><%= page.ctaLabel %></a>
+        <a href="/services" class="btn btn-outline">View All Services</a>
+      </div>
+    </div>
+
+    <div class="hero-card landing-card">
+      <span class="badge">What we include</span>
+      <h3>Conversion-ready petition support</h3>
+      <ul>
+        <% page.highlights.forEach(function(highlight) { %>
+          <li><%= highlight %></li>
+        <% }); %>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Why this page exists</span>
+      <h2>Designed for searchers who are ready to act</h2>
+      <p>This page targets a high-intent query and moves visitors toward a consultation with a single clear action.</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="service-icon"><%- include('partials/icon', { name: 'target' }) %></div>
+        <h3>Focused positioning</h3>
+        <p>The content matches the exact service query instead of sending visitors to a generic homepage.</p>
+      </div>
+      <div class="feature">
+        <div class="service-icon"><%- include('partials/icon', { name: 'document' }) %></div>
+        <h3>Evidence-driven drafting</h3>
+        <p>The page emphasizes the documents and evidence needed to support the filing strategy.</p>
+      </div>
+      <div class="feature">
+        <div class="service-icon"><%- include('partials/icon', { name: 'briefcase' }) %></div>
+        <h3>Low-friction conversion</h3>
+        <p>A single consultation CTA keeps the page focused on lead generation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Frequently Asked Questions</span>
+      <h2>Common questions before filing</h2>
+    </div>
+
+    <div class="faq-grid">
+      <% page.faqs.forEach(function(faq) { %>
+        <details class="faq-item">
+          <summary><%= faq.q %></summary>
+          <p><%= faq.a %></p>
+        </details>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Related services</span>
+      <h2>Other service pages you may need</h2>
+    </div>
+
+    <div class="services-grid">
+      <% relatedServices.forEach(function(service) { %>
+        <div class="service-card">
+          <div class="service-icon"><%= service.name.slice(0,2) %></div>
+          <h3><%= service.name %></h3>
+          <span class="tagline"><%= service.tagline %></span>
+          <p><%= service.description %></p>
+          <a href="/services/<%= service.slug %>" class="learn-more">Learn More →</a>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cta-band">
+      <h2>Ready to move forward?</h2>
+      <p>Book a consultation and we’ll review your background, goals, and evidence before you file.</p>
+      <a href="/consultation?service=<%= page.service ? encodeURIComponent(page.service.enumValue) : '' %>" class="btn btn-blue"><%= page.ctaLabel %></a>
+    </div>
+  </div>
+</section>

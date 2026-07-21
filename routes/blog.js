@@ -46,6 +46,7 @@ router.get('/blog', async (req, res) => {
   res.render('blog/index', {
     title: 'Immigration Blog | Immigration Horizons',
     description: 'Notes on EB-2 NIW, EB-1A, EB-1B and EB-1C strategy, RFE responses, and USCIS policy updates.',
+    keywords: 'Immigration blog, EB-2 NIW blog, EB-1A blog, USCIS updates, RFE guide, immigration news',
     posts,
     categories,
     activeCategory: category || null,
@@ -65,6 +66,7 @@ router.get('/blog/:slug', async (req, res) => {
     res.render('blog/post', {
       title: `${post.title} | Immigration Horizons Blog`,
       description: post.excerpt ? post.excerpt.slice(0, 160) : undefined,
+      keywords: `${post.title}, immigration blog, EB-2 NIW, EB-1A, USCIS updates`,
       post,
       related,
       comments,
@@ -93,6 +95,7 @@ router.post('/blog/:slug/comments', async (req, res) => {
       return res.render('blog/post', {
         title: `${post.title} | Immigration Horizons Blog`,
         description: post.excerpt ? post.excerpt.slice(0, 160) : undefined,
+        keywords: `${post.title}, immigration blog, EB-2 NIW, EB-1A, USCIS updates`,
         post,
         related,
         comments,

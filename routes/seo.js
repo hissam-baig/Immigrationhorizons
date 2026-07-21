@@ -5,6 +5,7 @@ const services = require('../utils/services');
 
 const STATIC_ROUTES = [
   '/', '/services', '/about', '/reviews', '/blog', '/consultation', '/contact',
+  '/privacy', '/terms', '/resources', '/free-evaluation', '/book-consultation',
   ...services.map((s) => `/services/${s.slug}`),
 ];
 
@@ -68,9 +69,25 @@ ${urls.map((u) => `  <url>
 
 router.get('/robots.txt', (req, res) => {
   const siteUrl = res.locals.siteUrl;
-  res.type('text/plain').send(
-    `User-agent: *\nAllow: /\nDisallow: /admin\n\nSitemap: ${siteUrl}/sitemap.xml\n`
-  );
+  const sections = [
+    ['Googlebot', 'Allow: /'],
+    ['Bingbot', 'Allow: /'],
+    ['GPTBot', 'Allow: /'],
+    ['ClaudeBot', 'Allow: /'],
+    ['PerplexityBot', 'Allow: /'],
+    ['AppleBot', 'Allow: /'],
+    ['*', 'Allow: /'],
+  ];
+  const lines = sections.flatMap(([agent, rule]) => [
+    `User-agent: ${agent}`,
+    rule,
+    'Disallow: /admin',
+    'Disallow: /api',
+    'Disallow: /private',
+    '',
+  ]);
+  lines.push(`Sitemap: ${siteUrl}/sitemap.xml`);
+  res.type('text/plain').send(lines.join('\n'));
 });
 
 router.get('/llms.txt', (req, res) => {

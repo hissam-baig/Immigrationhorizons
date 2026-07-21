@@ -1,0 +1,34 @@
+<section class="section" style="padding-top:48px;">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Resources</span>
+      <h2>Helpful links and starting points</h2>
+      <p>Use these pages to find the main services, consultation form, and blog content that explain the process in more detail.</p>
+    </div>
+
+    <div class="services-grid">
+      <a class="service-card" href="/consultation">
+        <div class="service-icon">FC</div>
+        <h3>Free Consultation</h3>
+        <p>Start here if you want us to review your background and suggest the right case strategy.</p>
+      </a>
+      <a class="service-card" href="/services">
+        <div class="service-icon">SV</div>
+        <h3>Services</h3>
+        <p>See the immigration petition services and single deliverables we offer.</p>
+      </a>
+      <a class="service-card" href="/blog">
+        <div class="service-icon">BG</div>
+        <h3>Blog</h3>
+        <p>Read strategy notes, USCIS updates, and case-preparation guidance.</p>
+      </a>
+      <% services.forEach(function(service) { %>
+        <a class="service-card" href="/services/<%= service.slug %>">
+          <div class="service-icon"><%= service.name.slice(0,2) %></div>
+          <h3><%= service.name %></h3>
+          <p><%= service.tagline %></p>
+        </a>
+      <% }); %>
+    </div>
+  </div>
+</section>

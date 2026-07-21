@@ -68,11 +68,18 @@ app.use(session(sessionConfig));
 
 // ----- Locals available in every view -----
 app.use((req, res, next) => {
+  const trackedKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'];
+  const trackingParams = trackedKeys.reduce((acc, key) => {
+    if (req.query[key]) acc[key] = String(req.query[key]).trim();
+    return acc;
+  }, {});
+
   res.locals.siteUrl = process.env.SITE_URL || 'https://immigrationhorizons.com';
   res.locals.whatsapp1 = process.env.WHATSAPP_NUMBER_1 || '923305507598';
   res.locals.whatsapp2 = process.env.WHATSAPP_NUMBER_2 || '923418883635';
   res.locals.contactEmail = process.env.CONTACT_RECEIVER_EMAIL || 'smartforce54@gmail.com';
   res.locals.currentPath = req.path;
+  res.locals.trackingParams = trackingParams;
   res.locals.isAdmin = !!(req.session && req.session.isAdmin);
   res.locals.services = services;
   res.locals.marketplaceListings = marketplaceListings;
@@ -80,7 +87,13 @@ app.use((req, res, next) => {
   res.locals.fiverrRfeGigUrl = social.FIVERR_RFE_GIG_URL;
   res.locals.upworkProfileUrl = social.UPWORK_PROFILE_URL;
   res.locals.upworkRfeNiwCatalogUrl = social.UPWORK_RFE_NIW_CATALOG_URL;
+  res.locals.ga4Id = process.env.GA4_ID || '';
+  res.locals.gtmId = process.env.GTM_ID || '';
+  res.locals.metaPixelId = process.env.META_PIXEL_ID || '';
+  res.locals.linkedinPartnerId = process.env.LINKEDIN_PARTNER_ID || '';
+  res.locals.clarityId = process.env.MICROSOFT_CLARITY_ID || '';
   res.locals.description = null;
+  res.locals.keywords = null;
   next();
 });
 
