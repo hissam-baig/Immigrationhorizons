@@ -85,7 +85,7 @@
   };
   const jsonLd = [organizationSchema, websiteSchema].concat(pageSchema ? [pageSchema] : []).concat(breadcrumbSchema ? [breadcrumbSchema] : []);
   const safeJsonLd = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
-  const hasTracking = ga4Id || gtmId || metaPixelId || linkedinPartnerId || clarityId;
+  const hasTracking = ga4Id || metaPixelId || linkedinPartnerId || clarityId;
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -109,18 +109,13 @@
   <meta name="theme-color" content="#0f172a">
   <% if (noindexPage) { %><meta name="robots" content="noindex,nofollow"><% } else { %><meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"><% } %>
   <script type="application/ld+json"><%- safeJsonLd %></script>
-  <% if (hasTracking && gtmId) { %>
-    <script>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','<%= gtmId %>');
-    </script>
-  <% } %>
   <% if (hasTracking && ga4Id) { %>
     <script async src="https://www.googletagmanager.com/gtag/js?id=<%= ga4Id %>"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);} 
+      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', '<%= ga4Id %>', { anonymize_ip: true });
+      gtag('config', '<%= ga4Id %>');
     </script>
   <% } %>
   <% if (hasTracking && metaPixelId) { %>
@@ -162,9 +157,6 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <% if (hasTracking && gtmId) { %>
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<%= gtmId %>" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <% } %>
   <%- include('nav') %>
 
   <main>
