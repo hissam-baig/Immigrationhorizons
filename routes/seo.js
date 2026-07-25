@@ -40,7 +40,7 @@ function buildLlmSummary(siteUrl) {
     '- The site uses public reviews and blog posts as supporting credibility content.',
     '',
     'Contact',
-    `- Email: ${process.env.CONTACT_RECEIVER_EMAIL || 'smartforce54@gmail.com'}`,
+    `- Email: ${process.env.CONTACT_RECEIVER_EMAIL || 'info@immigrationhorizons.com'}`,
     `- WhatsApp 1: +${process.env.WHATSAPP_NUMBER_1 || '923305507598'}`,
     `- WhatsApp 2: +${process.env.WHATSAPP_NUMBER_2 || '923418883635'}`,
   ].join('\n');

@@ -24,7 +24,7 @@ Then open `.env` and fill in:
 | `SESSION_SECRET` | Any long random string |
 | `ADMIN_USERNAME` / `ADMIN_PASSWORD` | Login for `/admin` (the blog dashboard) |
 | `RESEND_API_KEY` / `EMAIL_FROM` | Used to email you consultation form submissions |
-| `CONTACT_RECEIVER_EMAIL` | Where those emails land (defaults to smartforce54@gmail.com) |
+| `CONTACT_RECEIVER_EMAIL` | Where those emails land (defaults to info@immigrationhorizons.com) |
 | `GOOGLE_SERVICE_ACCOUNT_EMAIL` / `GOOGLE_PRIVATE_KEY` / `GOOGLE_SHEET_ID` / `GOOGLE_SHEET_TAB_NAME` | Used to append each lead as a row in a Google Sheet |
 | `WHATSAPP_NUMBER_1` / `WHATSAPP_NUMBER_2` | Shown on the site / used for the WhatsApp button |
 
