@@ -15,21 +15,10 @@ const BlogPostSchema = new mongoose.Schema(
     content: { type: String, required: true }, // HTML from the admin editor
     coverImage: { type: String, default: '' }, // /uploads/xyz.jpg or external URL
     author: { type: String, default: 'Immigration Horizons Team' },
-    published: { type: Boolean, default: true },
-
-    // ---- Added for the CMS (all optional, back-compatible) ----
     tags: { type: [String], default: [] },
-    publishAt: { type: Date, default: null }, // optional scheduled/explicit publish date
-    seo: {
-      title: { type: String, default: '' },
-      description: { type: String, default: '' },
-      canonical: { type: String, default: '' },
-      ogTitle: { type: String, default: '' },
-      ogDescription: { type: String, default: '' },
-      image: { type: String, default: '' },
-      keywords: { type: String, default: '' },
-      robotsIndex: { type: Boolean, default: true },
-    },
+    readingTime: { type: Number, default: 0 }, // minutes
+    published: { type: Boolean, default: true },
+    publishDate: { type: Date, default: null },
   },
   { timestamps: true }
 );

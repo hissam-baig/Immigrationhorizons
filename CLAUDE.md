@@ -1,11 +1,19 @@
 # Immigration Horizons — Project Memory
 
-## Two apps live in this repo
+## Apps in this repo
 
-| | Path | Stack | Status |
-|---|---|---|---|
-| **Old site** | repo root | Express 4 + EJS + MongoDB | Live in production |
-| **New site** | `web/` | Next.js 16 + React 19 + TS + Tailwind v4 | In build, not deployed |
+| | Path | Stack | Port | Status |
+|---|---|---|---|---|
+| **Old site** | repo root | Express 4 + EJS + MongoDB | 3000 | Live in production |
+| **New frontend** | `web/` | Next.js 16 + React 19 + TS + Tailwind v4 | 3000 | In build, not deployed |
+| **Admin CMS** | `web/server/` | Express + EJS + MongoDB | 4000 | Standalone admin panel |
+
+### Admin CMS (`web/server/`)
+`cd web/server && npm install && npm run dev` → http://localhost:4000/admin. `npm run seed` migrates existing testimonials/FAQs/settings into Mongo. Login via env `ADMIN_USERNAME`/`ADMIN_PASSWORD` or DB users (`models/admin/User`).
+- Router `routes/admin/index.js`: dashboard, leads (+ CSV export, notes), blog CRUD, SEO manager, testimonials, FAQs, services, media library, settings, users, global search.
+- Models: shared root (`BlogPost`, `Consultation`, `Comment`) + `models/admin/*` (FAQ, Testimonial, SEOMeta, Setting, Media, User, InternalNote).
+- The panel was originally built in the **repo-root** Express app (wired via root `server.js` → `routes/admin/index`) and then moved here as a standalone copy. Root copy left intact so the live app isn't broken — remove it only at cutover.
+- This admin only reads/manages stored data. Lead email (Resend) + Sheets sync live in the site's form handler, not here. The `/admin/contact-form` page shows integration status.
 
 **Running the new site — this trips people up:**
 

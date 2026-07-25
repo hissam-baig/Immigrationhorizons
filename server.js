@@ -12,7 +12,7 @@ const connectDB = require('./config/db');
 const mainRoutes = require('./routes/main');
 const blogRoutes = require('./routes/blog');
 const consultationRoutes = require('./routes/consultation');
-const adminRoutes = require('./routes/admin');
+const adminRoutes = require('./routes/admin/index');
 const seoRoutes = require('./routes/seo');
 
 const services = require('./utils/services');
