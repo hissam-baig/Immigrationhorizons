@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(taskkill //F //PID 9020)"
+      "Bash(taskkill //F //PID 9020)",
+      "Bash(netstat -ano)",
+      "Bash(awk '{print $5}')",
+      "Bash(xargs -r -I{} taskkill //F //PID {})",
+      "Bash(rm -f \"d:/Immigration Horizons Hissan/Immigrationhorizons/web/server/server_smoke.log\" \"d:/Immigration Horizons Hissan/Immigrationhorizons/web/server/server_smoke2.log\" \"d:/Immigration Horizons Hissan/Immigrationhorizons/web/server/server_smoke3.log\" /tmp/admin_cookies.txt /tmp/admin_cookies2.txt /tmp/login_resp.html /tmp/admin_server.log)"
     ]
   }
 }
